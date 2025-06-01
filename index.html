@@ -3,47 +3,49 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Thamizhi Studios</title>
   <style>
     body {
       margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(to right, #141e30, #243b55);
+      background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80') no-repeat center center fixed;
+      background-size: cover;
       color: white;
       text-align: center;
-      padding: 2em;
-    }
-    h1 {
-      margin-bottom: 0.5em;
-    }
-    .links {
       display: flex;
       flex-direction: column;
-      gap: 1em;
-      margin-top: 2em;
+      justify-content: center;
+      height: 100vh;
+    }
+    h1 {
+      font-size: 3em;
+      margin-bottom: 0.2em;
+    }
+    p {
+      font-size: 1.2em;
+      margin-bottom: 2em;
     }
     a {
-      color: #61dafb;
+      display: inline-block;
+      padding: 1em 2em;
+      margin: 0.5em;
+      font-size: 1em;
+      color: white;
+      background-color: rgba(0, 123, 255, 0.7);
+      border: none;
+      border-radius: 5px;
       text-decoration: none;
-      font-size: 1.2em;
+      transition: background-color 0.3s;
     }
     a:hover {
-      text-decoration: underline;
-    }
-    @media (min-width: 600px) {
-      .links {
-        flex-direction: row;
-        justify-content: center;
-      }
+      background-color: rgba(0, 123, 255, 1);
     }
   </style>
 </head>
 <body>
   <h1>Welcome to Thamizhi Studios</h1>
-  <p>Explore our creations and digital products</p>
-  <div class="links">
-    <a href="/peacebreak">PeaceBreak App</a>
-  </div>
+  <p>Explore our beautifully crafted digital experiences.</p>
+  <a href="./peacebreak/index.html">PeaceBreak</a>
 </body>
 </html>
