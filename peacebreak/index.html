@@ -4,56 +4,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>PeaceBreak App</title>
+  <title>PeaceBreak</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
-    body {
-      margin: 0;
-      font-family: 'Inter', sans-serif;
-      background-color: #fdfdfd;
-      color: #212121;
-    }
-    header {
-      background-color: #fff;
-      padding: 1rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
-    }
-    nav a {
-      margin-left: 1.5rem;
-      text-decoration: none;
-      color: #6f42c1;
-      font-weight: 600;
-    }
-    .section {
-      padding: 3rem 2rem;
-      text-align: center;
-    }
-    .features {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 2rem;
-    }
-    .feature-card {
-      background: #ffffff;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-      padding: 1.5rem;
-      width: 300px;
-      text-align: left;
-    }
-    .feature-card h3 {
-      color: #6f42c1;
-    }
-    footer {
-      text-align: center;
-      padding: 2rem;
-      font-size: 0.9em;
-      background: #f1f1f1;
-    }
+    body { margin: 0; font-family: 'Inter', sans-serif; background: #fdfdfd; color: #212121; }
+    header { background: #fff; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 6px rgba(0,0,0,0.06); }
+    nav a { margin-left: 1.5rem; text-decoration: none; color: #6f42c1; font-weight: 600; }
+    section { padding: 3rem 2rem; text-align: center; }
+    .features, .audience { display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem; margin-top: 2rem; }
+    .card { background: #fff; padding: 2rem; border-radius: 8px; width: 300px; text-align: left; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+    .card h3 { color: #6f42c1; margin-top: 0; }
+    footer { text-align: center; padding: 2rem; font-size: 0.9em; background: #f1f1f1; }
   </style>
 </head>
 <body>
@@ -65,29 +26,44 @@
     </nav>
   </header>
 
-  <section class="section">
+  <section>
     <h1>Find Your PeaceBreak</h1>
-    <p>Shake. Schedule. Tap. It’s that simple. PeaceBreak helps you pause with intention, wherever you are, whenever you need.</p>
+    <p>Shake. Tap. Schedule. PeaceBreak brings mindfulness into your day — even when you forget to breathe.</p>
   </section>
 
-  <section class="section">
-    <h2>Key Features</h2>
+  <section>
+    <h2>🧠 What Is PeaceBreak?</h2>
+    <p>PeaceBreak is a minimalist ambient audio application that lets you trigger intentional moments of calm in the background — without opening the app or disrupting your workflow. It’s mindfulness without the burden of mindfulness apps.</p>
+  </section>
+
+  <section>
+    <h2>✨ Key Features</h2>
     <div class="features">
-      <div class="feature-card">
-        <h3>🎧 Audio & Playback</h3>
-        <p>Play calming tracks, loop ambient sounds, and fall asleep with fade-outs — even in the background.</p>
+      <div class="card">
+        <h3>🎧 High-Quality Playback</h3>
+        <p>Looping nature sounds, fade-in/fade-out, background and lock screen controls.</p>
       </div>
-      <div class="feature-card">
-        <h3>⏱️ Scheduled Peace Breaks</h3>
-        <p>Create recurring or one-off peace breaks. Customize sounds, timing, and intensity.</p>
+      <div class="card">
+        <h3>⏱ Scheduled Peace Breaks</h3>
+        <p>Recurring or one-off breaks with customizable duration and sounds.</p>
       </div>
-      <div class="feature-card">
-        <h3>🤳 Shake Detection</h3>
-        <p>Trigger instant calm with a shake gesture — even when the screen is off.</p>
+      <div class="card">
+        <h3>🤳 Shake-to-Trigger</h3>
+        <p>Even when locked — just shake to activate instant calm. No tap needed.</p>
       </div>
     </div>
   </section>
 
-  <footer>© 2025 PeaceBreak by Thamizhi Studios.</footer>
+  <section>
+    <h2>👥 Who Is It For?</h2>
+    <div class="audience">
+      <div class="card"><h3>👩‍💻 Professionals</h3><p>Need a quick reset between meetings or burnout prevention.</p></div>
+      <div class="card"><h3>🎓 Students</h3><p>Quick decompression between intense focus sessions.</p></div>
+      <div class="card"><h3>🧘‍♀️ Creatives</h3><p>Writers, designers, musicians — recharge your creative energy.</p></div>
+      <div class="card"><h3>🧑‍⚕️ Health Workers</h3><p>Stress management in unpredictable shifts or downtime.</p></div>
+    </div>
+  </section>
+
+  <footer>© 2025 PeaceBreak by Thamizhi Studios. All rights reserved.</footer>
 </body>
 </html>
