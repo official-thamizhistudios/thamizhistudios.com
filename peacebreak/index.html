@@ -4,42 +4,90 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>PeaceBreak</title>
+  <title>PeaceBreak App</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
-      font-family: 'Arial', sans-serif;
-      background: linear-gradient(to right, #243949, #517fa4);
-      color: white;
-      padding: 2em;
+      font-family: 'Inter', sans-serif;
+      background-color: #fdfdfd;
+      color: #212121;
+    }
+    header {
+      background-color: #fff;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    }
+    nav a {
+      margin-left: 1.5rem;
+      text-decoration: none;
+      color: #6f42c1;
+      font-weight: 600;
+    }
+    .section {
+      padding: 3rem 2rem;
       text-align: center;
     }
-    h1 {
-      font-size: 2.5em;
-      margin-bottom: 0.5em;
+    .features {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
     }
-    p {
-      font-size: 1.2em;
-      max-width: 700px;
-      margin: 0 auto 2em;
+    .feature-card {
+      background: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      padding: 1.5rem;
+      width: 300px;
+      text-align: left;
     }
-    a {
-      padding: 1em 2em;
-      background-color: #fca311;
-      color: black;
-      text-decoration: none;
-      border-radius: 5px;
-      font-weight: bold;
-      transition: background-color 0.3s;
+    .feature-card h3 {
+      color: #6f42c1;
     }
-    a:hover {
-      background-color: #ffb703;
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.9em;
+      background: #f1f1f1;
     }
   </style>
 </head>
 <body>
-  <h1>PeaceBreak</h1>
-  <p>Take a breath, take a break. Whether by shake or schedule, PeaceBreak helps you reclaim calm in a chaotic world.</p>
-  <a href="./paymentthankyou.html">Test Payment Redirect</a>
+  <header>
+    <div><strong style="color:#6f42c1;">PeaceBreak</strong></div>
+    <nav>
+      <a href="../index.html">Home</a>
+      <a href="./paymentthankyou.html">Payment Thank You</a>
+    </nav>
+  </header>
+
+  <section class="section">
+    <h1>Find Your PeaceBreak</h1>
+    <p>Shake. Schedule. Tap. It’s that simple. PeaceBreak helps you pause with intention, wherever you are, whenever you need.</p>
+  </section>
+
+  <section class="section">
+    <h2>Key Features</h2>
+    <div class="features">
+      <div class="feature-card">
+        <h3>🎧 Audio & Playback</h3>
+        <p>Play calming tracks, loop ambient sounds, and fall asleep with fade-outs — even in the background.</p>
+      </div>
+      <div class="feature-card">
+        <h3>⏱️ Scheduled Peace Breaks</h3>
+        <p>Create recurring or one-off peace breaks. Customize sounds, timing, and intensity.</p>
+      </div>
+      <div class="feature-card">
+        <h3>🤳 Shake Detection</h3>
+        <p>Trigger instant calm with a shake gesture — even when the screen is off.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>© 2025 PeaceBreak by Thamizhi Studios.</footer>
 </body>
 </html>

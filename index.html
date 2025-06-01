@@ -3,49 +3,106 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Thamizhi Studios</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80') no-repeat center center fixed;
-      background-size: cover;
-      color: white;
-      text-align: center;
+      font-family: 'Inter', sans-serif;
+      background-color: #f8f9fa;
+      color: #212529;
+    }
+    header {
+      background-color: #fff;
+      box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+      padding: 1rem 2rem;
       display: flex;
-      flex-direction: column;
-      justify-content: center;
-      height: 100vh;
+      justify-content: space-between;
+      align-items: center;
     }
-    h1 {
-      font-size: 3em;
-      margin-bottom: 0.2em;
-    }
-    p {
-      font-size: 1.2em;
-      margin-bottom: 2em;
-    }
-    a {
-      display: inline-block;
-      padding: 1em 2em;
-      margin: 0.5em;
-      font-size: 1em;
-      color: white;
-      background-color: rgba(0, 123, 255, 0.7);
-      border: none;
-      border-radius: 5px;
+    header nav a {
+      margin-left: 1.5rem;
       text-decoration: none;
-      transition: background-color 0.3s;
+      color: #4B0082;
+      font-weight: 600;
     }
-    a:hover {
-      background-color: rgba(0, 123, 255, 1);
+    .hero {
+      text-align: center;
+      padding: 5rem 2rem;
+      background: linear-gradient(to right, #f5f5f5, #eaeaea);
+    }
+    .hero h1 {
+      font-size: 2.8em;
+      color: #4B0082;
+    }
+    .hero p {
+      font-size: 1.2em;
+      margin-top: 1rem;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .hero a {
+      display: inline-block;
+      margin-top: 2rem;
+      background: #6f42c1;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 6px;
+      text-decoration: none;
+    }
+    section {
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+    .card {
+      background: #fff;
+      border-radius: 10px;
+      padding: 2rem;
+      max-width: 600px;
+      margin: 2rem auto;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.9em;
+      background: #f1f1f1;
     }
   </style>
 </head>
 <body>
-  <h1>Welcome to Thamizhi Studios</h1>
-  <p>Explore our beautifully crafted digital experiences.</p>
-  <a href="./peacebreak/index.html">PeaceBreak</a>
+  <header>
+    <div><strong style="color:#6f42c1;">Thamizhi Studios</strong></div>
+    <nav>
+      <a href="./index.html">Home</a>
+      <a href="./peacebreak/index.html">PeaceBreak</a>
+      <a href="./peacebreak/paymentthankyou.html">Payment Thank You</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>Welcome to Thamizhi Studios</h1>
+    <p>We craft thoughtful, soulful digital products — built with intention, rooted in clarity. Explore our featured project: PeaceBreak.</p>
+    <a href="./peacebreak/index.html">Explore PeaceBreak</a>
+  </section>
+
+  <section>
+    <h2>🌱 Our Mission – Thamizhi Studios</h2>
+    <div class="card">
+      <p><strong>At Thamizhi Studios</strong>, our mission is to build simple, beautiful tools that slow you down and reconnect you to yourself — without noise, without clutter. Every pixel has a purpose.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>🎯 Featured Project</h2>
+    <div class="card">
+      <h3>PeaceBreak App</h3>
+      <p>A family-made tool for micro moments of calm. Trigger ambient peace with a shake, a tap, or a schedule. It’s mindfulness, simplified.</p>
+    </div>
+  </section>
+
+  <footer>© 2025 Thamizhi Studios. All rights reserved.</footer>
 </body>
 </html>
