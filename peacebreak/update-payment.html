@@ -12,7 +12,28 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Update Payment Method – PeaceBreak</title>
   <meta name="color-scheme" content="light dark">
-  <script src="https://web.squarecdn.com/v1/square.js"></script>
+  <script>
+    // ---- CONFIGURATION ----
+    // Set your credentials here
+    const SQUARE_CONFIG = {
+      sandbox: {
+        script: 'https://sandbox.web.squarecdn.com/v1/square.js',
+        appId: 'sandbox-sq0idb-Dfm_eh4V58DLUu-esACSig', // <-- your sandbox App ID
+        locationId: 'LG4QHA89Q3MPE', // <-- your sandbox Location ID
+      },
+      production: {
+        script: 'https://web.squarecdn.com/v1/square.js',
+        appId: 'REPLACE_WITH_YOUR_PRODUCTION_APP_ID', // <-- your production App ID
+        locationId: 'REPLACE_WITH_YOUR_PRODUCTION_LOCATION_ID', // <-- your production Location ID
+      }
+    };
+    // Parse env from URL (?env=sandbox or ?env=production)
+    const urlParams = new URLSearchParams(window.location.search);
+    const env = urlParams.get('env') === 'sandbox' ? 'sandbox' : 'production';
+    const { script: SQUARE_SCRIPT_SRC, appId: SQUARE_APP_ID, locationId: SQUARE_LOCATION_ID } = SQUARE_CONFIG[env];
+    // Dynamically load the correct Square script
+    document.write(`<script src='${SQUARE_SCRIPT_SRC}'><\/script>`);
+  </script>
   <style>
     :root {
       --primary: #4FC3F7;
@@ -31,168 +52,177 @@
       padding: 0;
       background: var(--bg);
       color: var(--text);
-      font-family: 'Inter', system-ui, sans-serif;
-      display: flex;
-      flex-direction: column;
+      font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
       min-height: 100vh;
     }
     .container {
-      max-width: 400px;
-      margin: auto;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #23293A 0%, #181C24 100%);
+    }
+    .card {
       background: var(--card-bg);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
-      padding: 32px 24px 24px 24px;
-      margin-top: 48px;
+      padding: 2.5rem 2rem 2rem 2rem;
+      max-width: 370px;
+      width: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
+      animation: fadeIn 0.7s;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+    .logo {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.2rem;
+      font-size: 2.2rem;
+      color: #fff;
+      font-weight: bold;
+      box-shadow: 0 2px 8px rgba(79,195,247,0.18);
+      letter-spacing: 1px;
     }
     h1 {
-      color: var(--primary);
-      font-size: 1.7rem;
-      margin-bottom: 8px;
+      font-size: 1.5rem;
       font-weight: 700;
-      letter-spacing: 0.01em;
+      margin: 0 0 0.5rem 0;
+      letter-spacing: 0.5px;
+      color: var(--primary);
+      text-align: center;
     }
     .desc {
       color: #b0c4d4;
       font-size: 1rem;
-      margin-bottom: 24px;
+      margin-bottom: 1.5rem;
       text-align: center;
     }
     #card-container {
-      margin-bottom: 18px;
       width: 100%;
+      margin-bottom: 1.2rem;
     }
     .btn {
       width: 100%;
+      padding: 0.95rem 0;
       background: var(--primary);
       color: #fff;
-      border: none;
-      border-radius: 12px;
-      padding: 14px 0;
       font-size: 1.1rem;
       font-weight: 600;
+      border: none;
+      border-radius: var(--radius);
       cursor: pointer;
-      margin-top: 8px;
-      transition: background 0.2s;
-      box-shadow: 0 2px 8px rgba(79,195,247,0.08);
+      transition: background 0.18s;
+      margin-bottom: 0.7rem;
+      box-shadow: 0 2px 8px rgba(79,195,247,0.10);
+      letter-spacing: 0.5px;
     }
     .btn:active {
       background: #1976d2;
     }
-    .msg {
-      margin-top: 18px;
+    .error, .success {
+      width: 100%;
+      text-align: center;
+      margin-bottom: 0.7rem;
       font-size: 1rem;
-      text-align: center;
+      font-weight: 500;
+      min-height: 1.2em;
     }
-    .msg.error {
-      color: var(--error);
-    }
-    .msg.success {
-      color: var(--success);
-    }
+    .error { color: var(--error);}
+    .success { color: var(--success);}
     .powered {
-      margin-top: 32px;
+      margin-top: 1.2rem;
+      font-size: 0.85rem;
       color: #b0c4d4;
-      font-size: 0.9rem;
       text-align: center;
+      opacity: 0.7;
     }
-    @media (max-width: 500px) {
-      .container {
-        margin-top: 16px;
-        padding: 18px 6px 18px 6px;
-      }
+    @media (max-width: 480px) {
+      .card { padding: 1.2rem 0.5rem 1.5rem 0.5rem; }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Update Payment Method</h1>
-    <div class="desc">
-      Enter your new card details below to update your payment method for PeaceBreak. Your information is securely processed by Square.
-    </div>
-    <form id="payment-form">
+    <form class="card" id="payment-form" autocomplete="off" onsubmit="return false;">
+      <div class="logo" aria-label="PeaceBreak">🕊️</div>
+      <h1>Update Payment Method</h1>
+      <div class="desc">Enter your new card details below to update your payment method for PeaceBreak. Your information is securely processed by Square.</div>
       <div id="card-container"></div>
+      <div class="error" id="error"></div>
+      <div class="success" id="success"></div>
       <button class="btn" id="update-btn" type="submit">Update Card</button>
+      <div class="powered">Payments securely processed by <b>Square</b></div>
     </form>
-    <div class="msg" id="msg"></div>
-    <div class="powered">Payments securely processed by <b>Square</b></div>
   </div>
   <script>
-    // ---- CONFIGURATION ----
-    // Set your credentials here
-    const SQUARE_CONFIG = {
-      sandbox: {
-        appId: 'sandbox-sq0idb-Dfm_eh4V58DLUu-esACSig', // <-- Replace with your Sandbox App ID
-        locationId: 'L6KQKQJQKQKQK', // <-- Replace with your Sandbox Location ID
-      },
-      production: {
-        appId: 'REPLACE_WITH_PROD_APP_ID', // <-- Replace with your Production App ID
-        locationId: 'REPLACE_WITH_PROD_LOCATION_ID', // <-- Replace with your Production Location ID
-      }
-    };
-    // Detect environment from URL param
-    function getEnv() {
-      const params = new URLSearchParams(window.location.search);
-      return params.get('env') === 'sandbox' ? 'sandbox' : 'production';
+    // Wait for Square.js to be loaded
+    function onSquareReady(cb) {
+      if (window.Square) cb();
+      else setTimeout(() => onSquareReady(cb), 50);
     }
-    const ENV = getEnv();
-    const { appId, locationId } = SQUARE_CONFIG[ENV];
-    // ---- END CONFIG ----
+    let card;
+    let form = document.getElementById('payment-form');
+    let errorDiv = document.getElementById('error');
+    let successDiv = document.getElementById('success');
+    let updateBtn = document.getElementById('update-btn');
 
-    let payments, card;
-    const msg = document.getElementById('msg');
-    const form = document.getElementById('payment-form');
-    const updateBtn = document.getElementById('update-btn');
-
-    async function initializeSquare() {
+    onSquareReady(async function initializeSquare() {
       try {
-        payments = window.Square.payments(appId, locationId);
+        const payments = window.Square.payments(SQUARE_APP_ID, SQUARE_LOCATION_ID);
         card = await payments.card();
         await card.attach('#card-container');
       } catch (e) {
-        msg.textContent = 'Failed to initialize payment form. Please try again.';
-        msg.className = 'msg error';
+        errorDiv.textContent = 'Failed to initialize payment form. Please try again later.';
         updateBtn.disabled = true;
-        return;
       }
-    }
+    });
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      msg.textContent = '';
+      errorDiv.textContent = '';
+      successDiv.textContent = '';
       updateBtn.disabled = true;
       updateBtn.textContent = 'Processing...';
       try {
         const result = await card.tokenize();
         if (result.status === 'OK') {
-          // Send the card token to the React Native app
-          if (window.ReactNativeWebView) {
+          successDiv.textContent = 'Card updated!';
+          // Send token to React Native WebView
+          if (window.ReactNativeWebView && window.ReactNativeWebView.postMessage) {
             window.ReactNativeWebView.postMessage(result.token);
-          }
-          msg.textContent = 'Card updated!';
-          msg.className = 'msg success';
-          setTimeout(() => {
-            if (window.ReactNativeWebView) {
+            setTimeout(() => {
               window.ReactNativeWebView.postMessage('success');
-            }
-          }, 800);
+            }, 800);
+          } else {
+            successDiv.textContent = 'Card token: ' + result.token;
+          }
         } else {
-          msg.textContent = result.errors?.[0]?.message || 'Failed to tokenize card.';
-          msg.className = 'msg error';
+          errorDiv.textContent = (result.errors && result.errors[0] && result.errors[0].message) || 'Failed to tokenize card.';
         }
       } catch (err) {
-        msg.textContent = err.message || 'Failed to update card.';
-        msg.className = 'msg error';
-      } finally {
-        updateBtn.disabled = false;
-        updateBtn.textContent = 'Update Card';
+        errorDiv.textContent = err.message || 'Failed to update card.';
       }
+      updateBtn.disabled = false;
+      updateBtn.textContent = 'Update Card';
     });
 
-    initializeSquare();
+    // Accessibility: focus on card input after load
+    window.onload = () => {
+      setTimeout(() => {
+        const cardInput = document.querySelector('iframe');
+        if (cardInput) cardInput.focus();
+      }, 800);
+    };
   </script>
 </body>
 </html> 
