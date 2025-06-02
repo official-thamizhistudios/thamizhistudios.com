@@ -1,0 +1,198 @@
+<!--
+  PeaceBreak Update Payment Page
+  Usage: Open this page in a WebView for users to update their payment method securely.
+  - On success, this page will call window.ReactNativeWebView.postMessage('success')
+  - You must set your Square Application ID and Location ID below.
+  - This page is production-ready and safe for public deployment.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Update Payment Method – PeaceBreak</title>
+  <meta name="color-scheme" content="light dark">
+  <script src="https://web.squarecdn.com/v1/square.js"></script>
+  <style>
+    :root {
+      --primary: #4FC3F7;
+      --accent: #FF8C32;
+      --bg: #181C24;
+      --card-bg: #23293A;
+      --text: #fff;
+      --error: #ff4d4f;
+      --success: #4CAF50;
+      --radius: 18px;
+      --shadow: 0 4px 24px rgba(0,0,0,0.18);
+    }
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', system-ui, sans-serif;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    .container {
+      max-width: 400px;
+      margin: auto;
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 32px 24px 24px 24px;
+      margin-top: 48px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    h1 {
+      color: var(--primary);
+      font-size: 1.7rem;
+      margin-bottom: 8px;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+    }
+    .desc {
+      color: #b0c4d4;
+      font-size: 1rem;
+      margin-bottom: 24px;
+      text-align: center;
+    }
+    #card-container {
+      margin-bottom: 18px;
+      width: 100%;
+    }
+    .btn {
+      width: 100%;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      padding: 14px 0;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 8px;
+      transition: background 0.2s;
+      box-shadow: 0 2px 8px rgba(79,195,247,0.08);
+    }
+    .btn:active {
+      background: #1976d2;
+    }
+    .msg {
+      margin-top: 18px;
+      font-size: 1rem;
+      text-align: center;
+    }
+    .msg.error {
+      color: var(--error);
+    }
+    .msg.success {
+      color: var(--success);
+    }
+    .powered {
+      margin-top: 32px;
+      color: #b0c4d4;
+      font-size: 0.9rem;
+      text-align: center;
+    }
+    @media (max-width: 500px) {
+      .container {
+        margin-top: 16px;
+        padding: 18px 6px 18px 6px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Update Payment Method</h1>
+    <div class="desc">
+      Enter your new card details below to update your payment method for PeaceBreak. Your information is securely processed by Square.
+    </div>
+    <form id="payment-form">
+      <div id="card-container"></div>
+      <button class="btn" id="update-btn" type="submit">Update Card</button>
+    </form>
+    <div class="msg" id="msg"></div>
+    <div class="powered">Payments securely processed by <b>Square</b></div>
+  </div>
+  <script>
+    // ---- CONFIGURATION ----
+    // Set your credentials here
+    const SQUARE_CONFIG = {
+      sandbox: {
+        appId: 'sandbox-sq0idb-Dfm_eh4V58DLUu-esACSig', // <-- Replace with your Sandbox App ID
+        locationId: 'L6KQKQJQKQKQK', // <-- Replace with your Sandbox Location ID
+      },
+      production: {
+        appId: 'REPLACE_WITH_PROD_APP_ID', // <-- Replace with your Production App ID
+        locationId: 'REPLACE_WITH_PROD_LOCATION_ID', // <-- Replace with your Production Location ID
+      }
+    };
+    // Detect environment from URL param
+    function getEnv() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('env') === 'sandbox' ? 'sandbox' : 'production';
+    }
+    const ENV = getEnv();
+    const { appId, locationId } = SQUARE_CONFIG[ENV];
+    // ---- END CONFIG ----
+
+    let payments, card;
+    const msg = document.getElementById('msg');
+    const form = document.getElementById('payment-form');
+    const updateBtn = document.getElementById('update-btn');
+
+    async function initializeSquare() {
+      try {
+        payments = window.Square.payments(appId, locationId);
+        card = await payments.card();
+        await card.attach('#card-container');
+      } catch (e) {
+        msg.textContent = 'Failed to initialize payment form. Please try again.';
+        msg.className = 'msg error';
+        updateBtn.disabled = true;
+        return;
+      }
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      msg.textContent = '';
+      updateBtn.disabled = true;
+      updateBtn.textContent = 'Processing...';
+      try {
+        const result = await card.tokenize();
+        if (result.status === 'OK') {
+          // Send the card token to the React Native app
+          if (window.ReactNativeWebView) {
+            window.ReactNativeWebView.postMessage(result.token);
+          }
+          msg.textContent = 'Card updated!';
+          msg.className = 'msg success';
+          setTimeout(() => {
+            if (window.ReactNativeWebView) {
+              window.ReactNativeWebView.postMessage('success');
+            }
+          }, 800);
+        } else {
+          msg.textContent = result.errors?.[0]?.message || 'Failed to tokenize card.';
+          msg.className = 'msg error';
+        }
+      } catch (err) {
+        msg.textContent = err.message || 'Failed to update card.';
+        msg.className = 'msg error';
+      } finally {
+        updateBtn.disabled = false;
+        updateBtn.textContent = 'Update Card';
+      }
+    });
+
+    initializeSquare();
+  </script>
+</body>
+</html> 
