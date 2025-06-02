@@ -1,3 +1,9 @@
+<!--
+  Usage:
+  - For sandbox: https://your-domain.com/square-webview.html?env=sandbox
+  - For production: https://your-domain.com/square-webview.html?env=production (or omit for default)
+  - You can set your sandbox and production App IDs and Location IDs below.
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,7 +11,28 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Subscribe to PeaceBreak</title>
   <meta name="color-scheme" content="light dark">
-  <script src="https://web.squarecdn.com/v1/square.js"></script>
+  <script>
+    // ---- CONFIGURATION ----
+    // Set your credentials here
+    const SQUARE_CONFIG = {
+      sandbox: {
+        script: 'https://sandbox.web.squarecdn.com/v1/square.js',
+        appId: 'sandbox-sq0idb-Dfm_eh4V58DLUu-esACSig', // <-- your sandbox App ID
+        locationId: 'LG4QHA89Q3MPE', // <-- your sandbox Location ID
+      },
+      production: {
+        script: 'https://web.squarecdn.com/v1/square.js',
+        appId: 'REPLACE_WITH_YOUR_PRODUCTION_APP_ID', // <-- your production App ID
+        locationId: 'REPLACE_WITH_YOUR_PRODUCTION_LOCATION_ID', // <-- your production Location ID
+      }
+    };
+    // Parse env from URL (?env=sandbox or ?env=production)
+    const urlParams = new URLSearchParams(window.location.search);
+    const env = urlParams.get('env') === 'sandbox' ? 'sandbox' : 'production';
+    const { script: SQUARE_SCRIPT_SRC, appId: SQUARE_APP_ID, locationId: SQUARE_LOCATION_ID } = SQUARE_CONFIG[env];
+    // Dynamically load the correct Square script
+    document.write(`<script src='${SQUARE_SCRIPT_SRC}'><\/script>`);
+  </script>
   <style>
     :root {
       --primary: #4FC3F7;
@@ -147,23 +174,18 @@
     </form>
   </div>
   <script>
-    // ---- CONFIGURATION ----
-    const SQUARE_APP_ID = 'REPLACE_WITH_YOUR_PRODUCTION_APP_ID';
-    const SQUARE_LOCATION_ID = 'REPLACE_WITH_YOUR_PRODUCTION_LOCATION_ID';
-    // ----------------------
-
+    // Wait for Square.js to be loaded
+    function onSquareReady(cb) {
+      if (window.Square) cb();
+      else setTimeout(() => onSquareReady(cb), 50);
+    }
     let card;
     let form = document.getElementById('payment-form');
     let errorDiv = document.getElementById('error');
     let successDiv = document.getElementById('success');
     let payBtn = document.getElementById('pay-btn');
 
-    async function initializeSquare() {
-      if (!window.Square) {
-        errorDiv.textContent = 'Square.js failed to load. Please refresh.';
-        payBtn.disabled = true;
-        return;
-      }
+    onSquareReady(async function initializeSquare() {
       try {
         const payments = window.Square.payments(SQUARE_APP_ID, SQUARE_LOCATION_ID);
         card = await payments.card();
@@ -172,7 +194,7 @@
         errorDiv.textContent = 'Failed to initialize payment form. Please try again later.';
         payBtn.disabled = true;
       }
-    }
+    });
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -204,7 +226,6 @@
 
     // Accessibility: focus on card input after load
     window.onload = () => {
-      initializeSquare();
       setTimeout(() => {
         const cardInput = document.querySelector('iframe');
         if (cardInput) cardInput.focus();
