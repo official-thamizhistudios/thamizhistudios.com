@@ -1,29 +1,215 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Subscribe</title>
-    <script type="text/javascript" src="https://sandbox.web.squarecdn.com/v1/square.js"></script>
-    <style>body { font-family: sans-serif; margin: 2em; }</style>
-  </head>
-  <body>
-    <div id="card-container"></div>
-    <button id="pay-btn">Subscribe $4/mo</button>
-    <div id="error" style="color:red"></div>
-    <script>
-      async function main() {
-        const payments = window.Square.payments('REPLACE_WITH_APP_ID', 'REPLACE_WITH_LOCATION_ID');
-        const card = await payments.card();
-        await card.attach('#card-container');
-        document.getElementById('pay-btn').onclick = async () => {
-          const result = await card.tokenize();
-          if (result.status === 'OK') {
-            window.ReactNativeWebView.postMessage(result.token);
-          } else {
-            document.getElementById('error').textContent = result.errors?.[0]?.message || 'Card error';
-          }
-        };
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Subscribe to PeaceBreak</title>
+  <meta name="color-scheme" content="light dark">
+  <script src="https://web.squarecdn.com/v1/square.js"></script>
+  <style>
+    :root {
+      --primary: #4FC3F7;
+      --accent: #FF8C32;
+      --bg: #181C24;
+      --card-bg: #23293A;
+      --text: #fff;
+      --error: #ff4d4f;
+      --success: #4CAF50;
+      --radius: 18px;
+      --shadow: 0 4px 24px rgba(0,0,0,0.18);
+    }
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+      min-height: 100vh;
+    }
+    .container {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #23293A 0%, #181C24 100%);
+    }
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 2.5rem 2rem 2rem 2rem;
+      max-width: 370px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      animation: fadeIn 0.7s;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+    .logo {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.2rem;
+      font-size: 2.2rem;
+      color: #fff;
+      font-weight: bold;
+      box-shadow: 0 2px 8px rgba(79,195,247,0.18);
+      letter-spacing: 1px;
+    }
+    h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 0 0 0.5rem 0;
+      letter-spacing: 0.5px;
+      color: var(--primary);
+      text-align: center;
+    }
+    .desc {
+      color: #b0c4d4;
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+    #card-container {
+      width: 100%;
+      margin-bottom: 1.2rem;
+    }
+    .btn {
+      width: 100%;
+      padding: 0.95rem 0;
+      background: var(--accent);
+      color: #fff;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: background 0.18s;
+      margin-bottom: 0.7rem;
+      box-shadow: 0 2px 8px rgba(255,140,50,0.10);
+      letter-spacing: 0.5px;
+    }
+    .btn:active {
+      background: #e6761f;
+    }
+    .terms {
+      font-size: 0.85rem;
+      color: #b0c4d4;
+      text-align: center;
+      margin-bottom: 0.5rem;
+    }
+    .error, .success {
+      width: 100%;
+      text-align: center;
+      margin-bottom: 0.7rem;
+      font-size: 1rem;
+      font-weight: 500;
+      min-height: 1.2em;
+    }
+    .error { color: var(--error);}
+    .success { color: var(--success);}
+    .powered {
+      margin-top: 1.2rem;
+      font-size: 0.85rem;
+      color: #b0c4d4;
+      text-align: center;
+      opacity: 0.7;
+    }
+    @media (max-width: 480px) {
+      .card { padding: 1.2rem 0.5rem 1.5rem 0.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <form class="card" id="payment-form" autocomplete="off" onsubmit="return false;">
+      <div class="logo" aria-label="PeaceBreak">🕊️</div>
+      <h1>Subscribe to PeaceBreak</h1>
+      <div class="desc">Securely subscribe for <b>$4/month</b>.<br>Your card is never stored on our servers.</div>
+      <div id="card-container"></div>
+      <div class="error" id="error"></div>
+      <div class="success" id="success"></div>
+      <button class="btn" id="pay-btn" type="submit">Subscribe $4/mo</button>
+      <div class="terms">
+        By subscribing, you agree to our<br>
+        <a href="https://your-domain.com/terms" target="_blank" rel="noopener">Terms of Service</a> and authorize recurring charges.
+      </div>
+      <div class="powered">Payments securely processed by <b>Square</b></div>
+    </form>
+  </div>
+  <script>
+    // ---- CONFIGURATION ----
+    const SQUARE_APP_ID = 'REPLACE_WITH_YOUR_PRODUCTION_APP_ID';
+    const SQUARE_LOCATION_ID = 'REPLACE_WITH_YOUR_PRODUCTION_LOCATION_ID';
+    // ----------------------
+
+    let card;
+    let form = document.getElementById('payment-form');
+    let errorDiv = document.getElementById('error');
+    let successDiv = document.getElementById('success');
+    let payBtn = document.getElementById('pay-btn');
+
+    async function initializeSquare() {
+      if (!window.Square) {
+        errorDiv.textContent = 'Square.js failed to load. Please refresh.';
+        payBtn.disabled = true;
+        return;
       }
-      main();
-    </script>
-  </body>
-</html>
+      try {
+        const payments = window.Square.payments(SQUARE_APP_ID, SQUARE_LOCATION_ID);
+        card = await payments.card();
+        await card.attach('#card-container');
+      } catch (e) {
+        errorDiv.textContent = 'Failed to initialize payment form. Please try again later.';
+        payBtn.disabled = true;
+      }
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      errorDiv.textContent = '';
+      successDiv.textContent = '';
+      payBtn.disabled = true;
+      payBtn.textContent = 'Processing...';
+
+      try {
+        const result = await card.tokenize();
+        if (result.status === 'OK') {
+          successDiv.textContent = 'Card accepted! Finalizing...';
+          // Send token to React Native WebView
+          if (window.ReactNativeWebView && window.ReactNativeWebView.postMessage) {
+            window.ReactNativeWebView.postMessage(result.token);
+            successDiv.textContent = 'Card submitted. You may close this window.';
+          } else {
+            successDiv.textContent = 'Card token: ' + result.token;
+          }
+        } else {
+          errorDiv.textContent = (result.errors && result.errors[0] && result.errors[0].message) || 'Card error. Please check your details.';
+        }
+      } catch (err) {
+        errorDiv.textContent = 'Payment failed. Please try again.';
+      }
+      payBtn.disabled = false;
+      payBtn.textContent = 'Subscribe $4/mo';
+    });
+
+    // Accessibility: focus on card input after load
+    window.onload = () => {
+      initializeSquare();
+      setTimeout(() => {
+        const cardInput = document.querySelector('iframe');
+        if (cardInput) cardInput.focus();
+      }, 800);
+    };
+  </script>
+</body>
+</html> 
