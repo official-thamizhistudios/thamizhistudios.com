@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Subscribe</title>
+    <script type="text/javascript" src="https://sandbox.web.squarecdn.com/v1/square.js"></script>
+    <style>body { font-family: sans-serif; margin: 2em; }</style>
+  </head>
+  <body>
+    <div id="card-container"></div>
+    <button id="pay-btn">Subscribe $4/mo</button>
+    <div id="error" style="color:red"></div>
+    <script>
+      async function main() {
+        const payments = window.Square.payments('REPLACE_WITH_APP_ID', 'REPLACE_WITH_LOCATION_ID');
+        const card = await payments.card();
+        await card.attach('#card-container');
+        document.getElementById('pay-btn').onclick = async () => {
+          const result = await card.tokenize();
+          if (result.status === 'OK') {
+            window.ReactNativeWebView.postMessage(result.token);
+          } else {
+            document.getElementById('error').textContent = result.errors?.[0]?.message || 'Card error';
+          }
+        };
+      }
+      main();
+    </script>
+  </body>
+</html>
