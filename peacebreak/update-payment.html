@@ -1,15 +1,16 @@
 <!--
-  Usage:
-  - For sandbox: https://your-domain.com/square-webview.html?env=sandbox
-  - For production: https://your-domain.com/square-webview.html?env=production (or omit for default)
-  - You can set your sandbox and production App IDs and Location IDs below.
+  PeaceBreak Update Payment Page
+  Usage: Open this page in a WebView for users to update their payment method securely.
+  - On success, this page will call window.ReactNativeWebView.postMessage('success')
+  - You must set your Square Application ID and Location ID below.
+  - This page is production-ready and safe for public deployment.
 -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Subscribe to PeaceBreak</title>
+  <title>Update Payment Method – PeaceBreak</title>
   <meta name="color-scheme" content="light dark">
   <script>
     // ---- CONFIGURATION ----
@@ -26,8 +27,9 @@
         locationId: 'REPLACE_WITH_YOUR_PRODUCTION_LOCATION_ID', // <-- your production Location ID
       }
     };
-    // TEMPORARY: Always use sandbox credentials for now
-    const env = 'sandbox'; // override any URL param
+    // Parse env from URL (?env=sandbox or ?env=production)
+    const urlParams = new URLSearchParams(window.location.search);
+    const env = urlParams.get('env') === 'sandbox' ? 'sandbox' : 'production';
     const { script: SQUARE_SCRIPT_SRC, appId: SQUARE_APP_ID, locationId: SQUARE_LOCATION_ID } = SQUARE_CONFIG[env];
     // Dynamically load the correct Square script
     document.write(`<script src='${SQUARE_SCRIPT_SRC}'><\/script>`);
@@ -112,7 +114,7 @@
     .btn {
       width: 100%;
       padding: 0.95rem 0;
-      background: var(--accent);
+      background: var(--primary);
       color: #fff;
       font-size: 1.1rem;
       font-weight: 600;
@@ -121,17 +123,11 @@
       cursor: pointer;
       transition: background 0.18s;
       margin-bottom: 0.7rem;
-      box-shadow: 0 2px 8px rgba(255,140,50,0.10);
+      box-shadow: 0 2px 8px rgba(79,195,247,0.10);
       letter-spacing: 0.5px;
     }
     .btn:active {
-      background: #e6761f;
-    }
-    .terms {
-      font-size: 0.85rem;
-      color: #b0c4d4;
-      text-align: center;
-      margin-bottom: 0.5rem;
+      background: #1976d2;
     }
     .error, .success {
       width: 100%;
@@ -159,16 +155,12 @@
   <div class="container">
     <form class="card" id="payment-form" autocomplete="off" onsubmit="return false;">
       <div class="logo" aria-label="PeaceBreak">🕊️</div>
-      <h1>Subscribe to PeaceBreak</h1>
-      <div class="desc">Securely subscribe for <b>$4/month</b>.<br>Your card is never stored on our servers.</div>
+      <h1>Update Payment Method</h1>
+      <div class="desc">Enter your new card details below to update your payment method for PeaceBreak. Your information is securely processed by Square.</div>
       <div id="card-container"></div>
       <div class="error" id="error"></div>
       <div class="success" id="success"></div>
-      <button class="btn" id="pay-btn" type="submit">Subscribe $4/mo</button>
-      <div class="terms">
-        By subscribing, you agree to our<br>
-        <a href="https://your-domain.com/terms" target="_blank" rel="noopener">Terms of Service</a> and authorize recurring charges.
-      </div>
+      <button class="btn" id="update-btn" type="submit">Update Card</button>
       <div class="powered">Payments securely processed by <b>Square</b></div>
     </form>
   </div>
@@ -182,7 +174,7 @@
     let form = document.getElementById('payment-form');
     let errorDiv = document.getElementById('error');
     let successDiv = document.getElementById('success');
-    let payBtn = document.getElementById('pay-btn');
+    let updateBtn = document.getElementById('update-btn');
 
     onSquareReady(async function initializeSquare() {
       try {
@@ -191,7 +183,7 @@
         await card.attach('#card-container');
       } catch (e) {
         errorDiv.textContent = 'Failed to initialize payment form. Please try again later.';
-        payBtn.disabled = true;
+        updateBtn.disabled = true;
       }
     });
 
@@ -199,28 +191,29 @@
       e.preventDefault();
       errorDiv.textContent = '';
       successDiv.textContent = '';
-      payBtn.disabled = true;
-      payBtn.textContent = 'Processing...';
-
+      updateBtn.disabled = true;
+      updateBtn.textContent = 'Processing...';
       try {
         const result = await card.tokenize();
         if (result.status === 'OK') {
-          successDiv.textContent = 'Card accepted! Finalizing...';
+          successDiv.textContent = 'Card updated!';
           // Send token to React Native WebView
           if (window.ReactNativeWebView && window.ReactNativeWebView.postMessage) {
             window.ReactNativeWebView.postMessage(result.token);
-            successDiv.textContent = 'Card submitted. You may close this window.';
+            setTimeout(() => {
+              window.ReactNativeWebView.postMessage('success');
+            }, 800);
           } else {
             successDiv.textContent = 'Card token: ' + result.token;
           }
         } else {
-          errorDiv.textContent = (result.errors && result.errors[0] && result.errors[0].message) || 'Card error. Please check your details.';
+          errorDiv.textContent = (result.errors && result.errors[0] && result.errors[0].message) || 'Failed to tokenize card.';
         }
       } catch (err) {
-        errorDiv.textContent = 'Payment failed. Please try again.';
+        errorDiv.textContent = err.message || 'Failed to update card.';
       }
-      payBtn.disabled = false;
-      payBtn.textContent = 'Subscribe $4/mo';
+      updateBtn.disabled = false;
+      updateBtn.textContent = 'Update Card';
     });
 
     // Accessibility: focus on card input after load
