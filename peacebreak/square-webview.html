@@ -317,7 +317,7 @@
     onSquareReady(async () => {
       try {
         const payments = window.Square.payments(SQUARE_APP_ID, SQUARE_LOCATION_ID);
-        card = await payments.card();
+        card = await payments.card({ theme: 'dark' });
         await card.attach('#card-container');
       } catch (e) {
         errorDiv.textContent = 'Failed to initialize payment form. Please try again later.';
