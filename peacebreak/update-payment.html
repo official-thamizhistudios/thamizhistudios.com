@@ -258,7 +258,7 @@
       }
       waitForSquare(async () => {
         const payments = window.Square.payments(appId, locationId);
-        card = await payments.card();
+        card = await payments.card({ theme: 'dark' });
         await card.attach('#card-container');
       });
 
