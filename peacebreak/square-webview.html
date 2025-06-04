@@ -26,9 +26,8 @@
         locationId: 'REPLACE_WITH_YOUR_PRODUCTION_LOCATION_ID', // <-- your production Location ID
       }
     };
-    // Parse env from URL (?env=sandbox or ?env=production)
-    const urlParams = new URLSearchParams(window.location.search);
-    const env = urlParams.get('env') === 'sandbox' ? 'sandbox' : 'production';
+    // TEMPORARY: Always use sandbox credentials for now
+    const env = 'sandbox'; // override any URL param
     const { script: SQUARE_SCRIPT_SRC, appId: SQUARE_APP_ID, locationId: SQUARE_LOCATION_ID } = SQUARE_CONFIG[env];
     // Dynamically load the correct Square script
     document.write(`<script src='${SQUARE_SCRIPT_SRC}'><\/script>`);
@@ -154,14 +153,54 @@
     @media (max-width: 480px) {
       .card { padding: 1.2rem 0.5rem 1.5rem 0.5rem; }
     }
+    .close-btn {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      background: none;
+      border: none;
+      color: #b0c4d4;
+      font-size: 2rem;
+      font-weight: bold;
+      cursor: pointer;
+      z-index: 10;
+      transition: color 0.2s;
+    }
+    .close-btn:hover { color: #FF8C32; }
+    .security-info {
+      display: flex;
+      align-items: center;
+      background: rgba(79,195,247,0.08);
+      border-radius: 8px;
+      padding: 0.5rem 0.8rem;
+      margin-bottom: 1.1rem;
+      font-size: 0.98rem;
+      color: #b0c4d4;
+      width: 100%;
+      box-sizing: border-box;
+      gap: 6px;
+    }
+    .square-badge {
+      height: 22px;
+      margin-right: 6px;
+    }
+    @media (max-width: 480px) {
+      .close-btn { top: 8px; right: 8px; font-size: 1.6rem; }
+      .security-info { font-size: 0.92rem; }
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <form class="card" id="payment-form" autocomplete="off" onsubmit="return false;">
+      <button type="button" class="close-btn" aria-label="Close" onclick="if(window.ReactNativeWebView){window.ReactNativeWebView.postMessage('close');}">&times;</button>
       <div class="logo" aria-label="PeaceBreak">🕊️</div>
       <h1>Subscribe to PeaceBreak</h1>
       <div class="desc">Securely subscribe for <b>$4/month</b>.<br>Your card is never stored on our servers.</div>
+      <div class="security-info">
+        <img src="https://developer.squareup.com/images/logos/lock.svg" alt="Secured by Square" class="square-badge" style="height:22px;vertical-align:middle;margin-right:6px;"/>
+        <span>Payments are encrypted and PCI DSS compliant via Square.</span>
+      </div>
       <div id="card-container"></div>
       <div class="error" id="error"></div>
       <div class="success" id="success"></div>
