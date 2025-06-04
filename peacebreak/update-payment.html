@@ -188,23 +188,20 @@
 </head>
 <body>
   <div class="container">
-    <div style="position:relative; width:100%; max-width:370px;">
-      <button type="button" class="close-btn" aria-label="Close" onclick="if(window.ReactNativeWebView){window.ReactNativeWebView.postMessage('close');}">&times;</button>
-      <form class="card" id="payment-form" autocomplete="off" onsubmit="return false;">
-        <div class="logo" aria-label="PeaceBreak">🕊️</div>
-        <h1>Update Payment Method</h1>
-        <div class="desc">Enter your new card details below to update your payment method for PeaceBreak. Your information is securely processed by Square.</div>
-        <div class="security-info">
-          <img src="https://cdn.brandfolder.io/2RTK2U/marketing/square-lockup-black.svg" alt="Secured by Square" class="square-badge" />
-          <span>Payments are encrypted and PCI DSS compliant via Square.</span>
-        </div>
-        <div id="card-container"></div>
-        <div class="error" id="error"></div>
-        <div class="success" id="success"></div>
-        <button class="btn" id="update-btn" type="submit">Update Card</button>
-        <div class="powered">Payments securely processed by <b>Square</b></div>
-      </form>
-    </div>
+    <form class="card" id="payment-form" autocomplete="off" onsubmit="return false;">
+      <div class="logo" aria-label="PeaceBreak">🕊️</div>
+      <h1>Update Payment Method</h1>
+      <div class="desc">Enter your new card details below to update your payment method for PeaceBreak. Your information is securely processed by Square.</div>
+      <div class="security-info">
+        <img src="https://developer.squareup.com/images/logos/lock.svg" alt="Secured by Square" class="square-badge" />
+        <span>Payments are encrypted and PCI DSS compliant via Square.</span>
+      </div>
+      <div id="card-container"></div>
+      <div class="error" id="error"></div>
+      <div class="success" id="success"></div>
+      <button class="btn" id="update-btn" type="submit">Update Card</button>
+      <div class="powered">Payments securely processed by <b>Square</b></div>
+    </form>
   </div>
   <script>
     // Wait for Square.js to be loaded
