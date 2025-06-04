@@ -107,7 +107,7 @@
     .success { color: var(--success); }
 
     /* ------------------------------
-       Green “Subscribe $4/mo” Button
+       Green "Subscribe $4/mo" Button
        ------------------------------ */
     .btn {
       background: var(--success);
@@ -130,7 +130,7 @@
       width: 20px;
       height: 20px;
       margin-right: 0.5rem;
-      fill: white; /* White lock icon next to “Subscribe” */
+      fill: white; /* White lock icon next to "Subscribe" */
     }
 
     /* Terms of Service Link */
@@ -197,11 +197,25 @@
         padding: 1.2rem 0.5rem 1.5rem 0.5rem;
       }
     }
+
+    /* Make Square card input and placeholder text white for dark backgrounds */
+    #card-container iframe {
+      color-scheme: dark;
+    }
+    #card-container iframe::placeholder {
+      color: #fff !important;
+      opacity: 1 !important;
+    }
+    /* For some Square themes, input fields may need to be forced white */
+    #card-container input, #card-container input::placeholder {
+      color: #fff !important;
+      opacity: 1 !important;
+    }
   </style>
 </head>
 <body>
   <div class="container">
-    <!-- Big “PeaceBreak 🕊️” Heading -->
+    <!-- Big "PeaceBreak 🕊️" Heading -->
     <div class="brand-heading">
       PeaceBreak<span class="dove">🕊️</span>
     </div>
@@ -224,7 +238,7 @@
       <div class="status error" id="error"></div>
       <div class="status success" id="success"></div>
 
-      <!-- Green “Subscribe $4/mo” Button with White Lock Icon -->
+      <!-- Green "Subscribe $4/mo" Button with White Lock Icon -->
       <button class="btn" id="pay-btn" type="submit">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
           <path d="M12 17a2 2 0 110-4 2 2 0 010 4zm6-7h-1V7a5 5 0 00-10 0v3H6a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2v-8a2 2 0 00-2-2zm-8-3a3 3 0 016 0v3H10V7zm8 13H6v-8h12v8z"/>
@@ -232,7 +246,7 @@
         Subscribe $4/mo
       </button>
 
-      <!-- “Terms of Service” Link -->
+      <!-- "Terms of Service" Link -->
       <div class="terms">
         By subscribing, you agree to our
         <br>
