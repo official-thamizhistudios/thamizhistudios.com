@@ -102,17 +102,46 @@
     .desc {
       color: #b0c4d4;
       font-size: 1rem;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.2rem;
       text-align: center;
+    }
+    .security-info {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: none;
+      margin-bottom: 1.1rem;
+      width: 100%;
+    }
+    .square-logo-wrap {
+      background: #fff;
+      border-radius: 12px;
+      padding: 8px 18px;
+      margin-bottom: 0.3rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .square-badge {
+      height: 36px;
+      width: auto;
+      display: block;
+    }
+    .security-text {
+      color: #b0c4d4;
+      font-size: 0.98rem;
+      text-align: center;
+      margin-bottom: 0.2rem;
     }
     #card-container {
       width: 100%;
-      margin-bottom: 1.2rem;
+      margin-bottom: 0.7rem;
     }
     .btn {
       width: 100%;
       padding: 0.95rem 0;
-      background: var(--accent);
+      background: var(--primary);
       color: #fff;
       font-size: 1.1rem;
       font-weight: 600;
@@ -121,11 +150,11 @@
       cursor: pointer;
       transition: background 0.18s;
       margin-bottom: 0.7rem;
-      box-shadow: 0 2px 8px rgba(255,140,50,0.10);
+      box-shadow: 0 2px 8px rgba(79,195,247,0.10);
       letter-spacing: 0.5px;
     }
     .btn:active {
-      background: #e6761f;
+      background: #1976d2;
     }
     .terms {
       font-size: 0.85rem;
@@ -136,7 +165,7 @@
     .error, .success {
       width: 100%;
       text-align: center;
-      margin-bottom: 0.7rem;
+      margin-bottom: 0.5rem;
       font-size: 1rem;
       font-weight: 500;
       min-height: 1.2em;
@@ -144,7 +173,7 @@
     .error { color: var(--error);}
     .success { color: var(--success);}
     .powered {
-      margin-top: 1.2rem;
+      margin-top: 0.7rem;
       font-size: 0.85rem;
       color: #b0c4d4;
       text-align: center;
@@ -152,6 +181,8 @@
     }
     @media (max-width: 480px) {
       .card { padding: 1.2rem 0.5rem 1.5rem 0.5rem; }
+      .square-logo-wrap { padding: 6px 10px; }
+      .square-badge { height: 28px; }
     }
     .close-btn {
       position: absolute;
@@ -167,39 +198,19 @@
       transition: color 0.2s;
     }
     .close-btn:hover { color: #FF8C32; }
-    .security-info {
-      display: flex;
-      align-items: center;
-      background: rgba(79,195,247,0.08);
-      border-radius: 8px;
-      padding: 0.5rem 0.8rem;
-      margin-bottom: 1.1rem;
-      font-size: 0.98rem;
-      color: #b0c4d4;
-      width: 100%;
-      box-sizing: border-box;
-      gap: 6px;
-    }
-    .square-badge {
-      height: 22px;
-      margin-right: 6px;
-    }
-    @media (max-width: 480px) {
-      .close-btn { top: 8px; right: 8px; font-size: 1.6rem; }
-      .security-info { font-size: 0.92rem; }
-    }
   </style>
 </head>
 <body>
   <div class="container">
     <form class="card" id="payment-form" autocomplete="off" onsubmit="return false;">
-      <button type="button" class="close-btn" aria-label="Close" onclick="if(window.ReactNativeWebView){window.ReactNativeWebView.postMessage('close');}">&times;</button>
       <div class="logo" aria-label="PeaceBreak">🕊️</div>
       <h1>Subscribe to PeaceBreak</h1>
       <div class="desc">Securely subscribe for <b>$4/month</b>.<br>Your card is never stored on our servers.</div>
       <div class="security-info">
-        <img src="https://developer.squareup.com/images/logos/lock.svg" alt="Secured by Square" class="square-badge" style="height:22px;vertical-align:middle;margin-right:6px;"/>
-        <span>Payments are encrypted and PCI DSS compliant via Square.</span>
+        <div class="square-logo-wrap">
+          <img src="./assets/images/square_logo.png" alt="Secured by Square" class="square-badge" />
+        </div>
+        <span class="security-text">Payments are encrypted and PCI DSS compliant via Square.</span>
       </div>
       <div id="card-container"></div>
       <div class="error" id="error"></div>
