@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Subscribe to PeaceBreak</title>
+  <meta name="color-scheme" content="light dark">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Lavishly+Yours&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #4FC3F7;      /* Blue accent */
+      --accent: #FF8C32;
+      --bg: #181C24;           /* Dark page background */
+      --card-bg: #23293A;      /* Dark card background */
+      --text: #fff;            /* White text on dark */
+      --error: #ff4d4f;        /* Red for errors */
+      --success: #4CAF50;      /* Green for lock background and button */
+      --radius: 16px;          /* Rounded corners */
+      --shadow: 0 4px 20px rgba(0,0,0,0.2);
+    }
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      background: #1E1E2E url('./assets/images/background.png') center/cover fixed;
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+      position: relative;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(30, 30, 46, 0.85);
+      z-index: -1;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      padding: 2rem 1.5rem;
+    }
+
+    /* ------------------------------
+       Logo and Brand Heading
+       ------------------------------ */
+    .logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .logo img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+      filter: brightness(0) invert(1);
+      background: rgba(120, 165, 163, 0.1);
+      padding: 8px;
+      box-shadow: 0 4px 15px rgba(120, 165, 163, 0.3);
+    }
+
+    .logo-text {
+      font-family: 'Lavishly Yours', cursive;
+      font-size: 2.8rem;
+      color: var(--primary);
+      font-weight: 400;
+    }
+
+    /* ------------------------------
+       Card (Subscription Form)
+       ------------------------------ */
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 2rem;
+      width: 100%;
+      max-width: 400px;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      animation: fadeIn 0.6s ease-out;
+      margin-top: 1rem;
+      position: relative;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Section Title & Subtitle */
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 0;
+      text-align: center;
+      color: var(--primary);
+    }
+    .section-subtitle {
+      font-size: 1rem;
+      color: #b0c4d4;
+      text-align: center;
+      margin-bottom: 1rem;
+      line-height: 1.4;
+    }
+
+    /* Card Input Container */
+    #card-container {
+      width: 100%;
+    }
+
+    /* Error + Success Messages */
+    .status {
+      min-height: 1.2em;
+      text-align: center;
+      font-weight: 500;
+    }
+    .error { color: var(--error); }
+    .success { color: var(--success); }
+
+    /* ------------------------------
+       Green "Subscribe $4/mo" Button
+       ------------------------------ */
+    .btn {
+      background: var(--success);
+      color: white;
+      padding: 0.9rem;
+      border: none;
+      border-radius: var(--radius);
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s ease;
+    }
+    .btn:hover {
+      background: #43a047; /* Slightly darker green */
+    }
+    .btn svg {
+      width: 20px;
+      height: 20px;
+      margin-right: 0.5rem;
+      fill: white; /* White lock icon next to "Subscribe" */
+    }
+
+    /* Terms of Service Link */
+    .terms {
+      font-size: 0.85rem;
+      color: #b0c4d4;
+      text-align: center;
+      line-height: 1.3;
+    }
+    .terms a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+    .terms a:hover {
+      text-decoration: underline;
+    }
+
+    /* ------------------------------
+       Footer Text + Badges
+       ------------------------------ */
+    .footer-text {
+      font-size: 0.9rem;
+      color: #b0c4d4;
+      text-align: center;
+      margin-top: 0.8rem;
+      line-height: 1.4;
+    }
+    .badges-footer {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      margin-top: 0.6rem;
+      flex-wrap: wrap;
+    }
+    .badge {
+      background: white;
+      border-radius: 10px;
+      padding: 6px 14px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    /* Square logo (always 40px high for consistency) */
+    .badge img.square-logo {
+      height: 40px;
+      width: auto;
+      display: block;
+    }
+    /* Lock badge: green background + black lock icon */
+    .badge-lock {
+      background: var(--success);
+    }
+    .badge-lock svg {
+      width: 32px;
+      height: 32px;
+      display: block;
+      fill: #000;  /* Black lock icon */
+    }
+
+    /* Responsive tweaks for small screens (optional) */
+    @media (max-width: 480px) {
+      .card {
+        padding: 1.2rem 0.5rem 1.5rem 0.5rem;
+      }
+    }
+
+    /* Make Square card input and placeholder text white for dark backgrounds */
+    #card-container iframe {
+      color-scheme: dark;
+    }
+    #card-container iframe::placeholder {
+      color: #fff !important;
+      opacity: 1 !important;
+    }
+    /* For some Square themes, input fields may need to be forced white */
+    #card-container input, #card-container input::placeholder {
+      color: #fff !important;
+      opacity: 1 !important;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Logo and Brand -->
+    <div class="logo">
+      <img src="./assets/images/lotus-icon.jpg" alt="PeaceBreak Logo">
+      <span class="logo-text">PeaceBreak</span>
+    </div>
+
+    <!-- Subscription Card -->
+    <form class="card" id="payment-form" autocomplete="off" onsubmit="return false;">
+      <!-- Section Title -->
+      <h2 class="section-title">Subscribe to PeaceBreak</h2>
+
+      <!-- Updated Subtitle Text -->
+      <div class="section-subtitle">
+	<p>Enjoy every PeaceBreak feature and peaceful track for less than the cost of a coffee per month—no ads ever, no hidden fees, one simple plan. Cancel anytime. Thank you for supporting our small, family-run app that brings peace to thousands.</p>
+        <p>Your payment information is securely processed by Square.</p>
+      </div>
+
+      <!-- Square Card Input Widget -->
+      <div id="card-container"></div>
+
+      <!-- Error / Success Messages -->
+      <div class="status error" id="error"></div>
+      <div class="status success" id="success"></div>
+
+      <!-- Green "Subscribe $4/mo" Button with White Lock Icon -->
+      <button class="btn" id="pay-btn" type="submit">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M12 17a2 2 0 110-4 2 2 0 010 4zm6-7h-1V7a5 5 0 00-10 0v3H6a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2v-8a2 2 0 00-2-2zm-8-3a3 3 0 016 0v3H10V7zm8 13H6v-8h12v8z"/>
+        </svg>
+        Subscribe $4/mo
+      </button>
+
+      <!-- "Terms of Service" Link -->
+      <div class="terms">
+        By subscribing, you agree to our
+        <br>
+        <a href="https://your-domain.com/terms" target="_blank" rel="noopener">
+          Terms of Service
+        </a>
+        and authorize recurring charges.
+      </div>
+
+      <!-- Footer Text -->
+      <div class="footer-text">
+        Processed securely by <strong>Square</strong>. SSL Encrypted.
+      </div>
+
+      <!-- Badges Under Footer Text -->
+      <div class="badges-footer">
+        <!-- 1) Square logo badge -->
+        <div class="badge">
+          <img src="./assets/images/square_logo.png" alt="Square" class="square-logo" />
+        </div>
+        <!-- 2) Lock badge with green background + black lock icon -->
+        <div class="badge badge-lock">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M12 17a2 2 0 110-4 2 2 0 010 4zm6-7h-1V7a5 5 0 00-10 0v3H6a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2v-8a2 2 0 00-2-2zm-8-3a3 3 0 016 0v3H10V7zm8 13H6v-8h12v8z"/>
+          </svg>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- ================================
+       Load Square.js & Initialize Form
+       ================================ -->
+  <script>
+    // The SQUARE_CONFIG object remains the same
+    const SQUARE_CONFIG = {
+      sandbox: {
+        script: 'https://sandbox.web.squarecdn.com/v1/square.js',
+        appId: 'sandbox-sq0idb-Dfm_eh4V58DLUu-esACSig',
+        locationId: 'LG4QHA89Q3MPE',
+      },
+      production: {
+        script: 'https://web.squarecdn.com/v1/square.js',
+        appId: 'REPLACE_WITH_YOUR_PRODUCTION_APP_ID',
+        locationId: 'REPLACE_WITH_YOUR_PRODUCTION_LOCATION_ID',
+      }
+    };
+    // Override to always use sandbox (for testing). In production, swap to:
+    // const env = new URLSearchParams(window.location.search).get('env') === 'production' ? 'production' : 'sandbox';
+    const env = 'sandbox';
+    const { script: SQUARE_SCRIPT_SRC, appId: SQUARE_APP_ID, locationId: SQUARE_LOCATION_ID } = SQUARE_CONFIG[env];
+
+    // Dynamically load the Square.js library
+    document.write(`<script src="${SQUARE_SCRIPT_SRC}"><\/script>`);
+
+    // Wait until Square.js is ready, then attach the card widget
+    function onSquareReady(cb) {
+      if (window.Square) cb();
+      else setTimeout(() => onSquareReady(cb), 50);
+    }
+
+    let card;
+    let form = document.getElementById('payment-form');
+    let errorDiv = document.getElementById('error');
+    let successDiv = document.getElementById('success');
+    let payBtn = document.getElementById('pay-btn');
+
+    onSquareReady(async () => {
+      try {
+        const payments = window.Square.payments(SQUARE_APP_ID, SQUARE_LOCATION_ID);
+        card = await payments.card();
+        await card.attach('#card-container');
+      } catch (e) {
+        errorDiv.textContent = 'Failed to initialize payment form. Please try again later.';
+        payBtn.disabled = true;
+      }
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      errorDiv.textContent = '';
+      successDiv.textContent = '';
+      payBtn.disabled = true;
+      payBtn.textContent = 'Processing…';
+
+      try {
+        const result = await card.tokenize();
+        if (result.status === 'OK') {
+          successDiv.textContent = 'Card accepted! Finalizing…';
+          // If inside a ReactNativeWebView, send the token back:
+          if (window.ReactNativeWebView?.postMessage) {
+            window.ReactNativeWebView.postMessage(result.token);
+            successDiv.textContent = 'Card submitted. You may close this window.';
+          } else {
+            successDiv.textContent = 'Card token: ' + result.token;
+          }
+        } else {
+          errorDiv.textContent = (result.errors?.[0]?.message) || 'Card error. Please check your details.';
+        }
+      } catch (err) {
+        errorDiv.textContent = 'Payment failed. Please try again.';
+      }
+
+      payBtn.disabled = false;
+      payBtn.innerHTML = `
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="width:20px;height:20px;fill:white;margin-right:0.5rem;">
+          <path d="M12 17a2 2 0 110-4 2 2 0 010 4zm6-7h-1V7a5 5 0 00-10 0v3H6a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2v-8a2 2 0 00-2-2zm-8-3a3 3 0 016 0v3H10V7zm8 13H6v-8h12v8z"/>
+        </svg>
+        Subscribe $4/mo
+      `;
+    });
+
+    // After load, focus the card input if possible
+    window.onload = () => {
+      setTimeout(() => {
+        const iframe = document.querySelector('iframe');
+        if (iframe) iframe.focus();
+      }, 800);
+    };
+  </script>
+</body>
+</html>

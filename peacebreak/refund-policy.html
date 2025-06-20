@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PeaceBreak Refund Policy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Lavishly+Yours&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6; 
+            color: #F5F5F5; 
+            background: #1E1E2E url('./assets/images/background.png') center/cover fixed;
+            padding: 20px;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(30, 30, 46, 0.85);
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 800px; 
+            margin: 0 auto; 
+            background: rgba(44, 44, 63, 0.95); 
+            border-radius: 20px;
+            padding: 40px; 
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(120, 165, 163, 0.1);
+        }
+
+        .header { 
+            border-bottom: 2px solid #96AF74; 
+            padding-bottom: 30px; 
+            margin-bottom: 40px; 
+            text-align: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .logo img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            filter: brightness(0) invert(1);
+            background: rgba(120, 165, 163, 0.1);
+            padding: 7px;
+            box-shadow: 0 4px 15px rgba(120, 165, 163, 0.3);
+        }
+
+        .logo-text {
+            font-family: 'Lavishly Yours', cursive;
+            font-size: 2rem;
+            color: #78A5A3;
+            font-weight: 400;
+        }
+
+        h1 { 
+            color: #78A5A3; 
+            font-size: 2.5em; 
+            margin-bottom: 15px; 
+            font-weight: 700; 
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .last-updated { 
+            color: #A9B1B5; 
+            font-style: italic; 
+            font-size: 1.1rem;
+        }
+        
+        .intro {
+            background: rgba(150, 175, 116, 0.1); 
+            padding: 25px; 
+            border-radius: 15px; 
+            margin-bottom: 40px;
+            border-left: 4px solid #96AF74;
+        }
+        
+        .section { 
+            margin-bottom: 40px; 
+        }
+        
+        h2 {
+            color: #96AF74; 
+            font-size: 1.6em; 
+            margin-bottom: 20px; 
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(150, 175, 116, 0.3);
+        }
+        
+        h3 { 
+            color: #78A5A3; 
+            font-size: 1.3em; 
+            margin: 25px 0 15px 0; 
+            font-weight: 600; 
+        }
+        
+        ul { 
+            padding-left: 25px; 
+            margin-bottom: 20px; 
+        }
+        
+        li { 
+            margin-bottom: 10px; 
+            color: #A9B1B5;
+        }
+
+        p {
+            color: #A9B1B5;
+            margin-bottom: 15px;
+        }
+
+        ol {
+            padding-left: 25px;
+            margin-bottom: 20px;
+        }
+
+        ol li {
+            color: #A9B1B5;
+            margin-bottom: 8px;
+        }
+        
+        .contact-info {
+            background: rgba(150, 175, 116, 0.1);
+            padding: 25px; 
+            border-radius: 15px;
+            border-left: 4px solid #96AF74;
+        }
+
+        .contact-info h2 {
+            color: #96AF74;
+        }
+
+        .important {
+            background: rgba(255, 193, 7, 0.1); 
+            padding: 20px; 
+            border-radius: 12px;
+            border-left: 4px solid #FFC107; 
+            margin: 25px 0;
+        }
+
+        .important h3 {
+            color: #FFC107;
+        }
+
+        .highlight {
+            background: rgba(150, 175, 116, 0.15); 
+            padding: 20px; 
+            border-radius: 12px;
+            border-left: 4px solid #96AF74; 
+            margin: 25px 0;
+        }
+
+        .highlight h3 {
+            color: #96AF74;
+        }
+
+        .warning {
+            background: rgba(206, 90, 87, 0.1); 
+            padding: 20px; 
+            border-radius: 12px;
+            border-left: 4px solid #CE5A57; 
+            margin: 25px 0;
+        }
+
+        .warning h3 {
+            color: #CE5A57;
+        }
+
+        strong {
+            color: #F5F5F5;
+        }
+        
+        @media (max-width: 600px) {
+            body { padding: 10px; }
+            .container { padding: 25px; }
+            h1 { font-size: 2em; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <img src="./assets/images/lotus-icon.jpg" alt="PeaceBreak Logo">
+                <span class="logo-text">PeaceBreak</span>
+            </div>
+            <h1>Refund Policy</h1>
+            <div class="last-updated">Last Updated: January 30, 2025 • Version 1.0</div>
+        </div>
+        
+        <div class="intro">
+            At Thamizhi Studios, we want you to be completely satisfied with PeaceBreak. This Refund Policy explains our approach to refunds, cancellations, and billing practices for our subscription service.
+        </div>
+        
+        <div class="section">
+            <h2>1. Free Trial Period</h2>
+            <div class="highlight">
+                <ul>
+                    <li>All new users receive a 7-day free trial</li>
+                    <li>No charges during the trial period</li>
+                    <li>Cancel anytime during the trial at no cost</li>
+                    <li>Full access to premium features during trial</li>
+                    <li>Trial automatically converts to paid subscription unless canceled</li>
+                    <li>Only one free trial per user account</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>2. Subscription Billing</h2>
+            <ul>
+                <li>Monthly subscription: $4.00 USD per month</li>
+                <li>Billing occurs on the same date each month</li>
+                <li>Payments processed through your device's app store</li>
+                <li>Subscriptions automatically renew unless canceled</li>
+                <li>Price includes all applicable taxes where required</li>
+                <li>Payment methods accepted via App Store/Google Play</li>
+            </ul>
+        </div>
+        
+        <div class="section">
+            <h2>3. Cancellation Policy</h2>
+            <div class="highlight">
+                <h3>Easy Cancellation:</h3>
+                <ul>
+                    <li>Cancel your subscription anytime through the app or device settings</li>
+                    <li>No cancellation fees or penalties</li>
+                    <li>Access continues until the end of your current billing period</li>
+                    <li>Cancellation takes effect at the next renewal date</li>
+                    <li>You can reactivate your subscription at any time</li>
+                    <li>Account data is retained for 30 days after cancellation</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>4. Refund Eligibility</h2>
+            
+            <h3>Full Refunds Available For:</h3>
+            <div class="highlight">
+                <ul>
+                    <li>Technical issues preventing app usage for more than 7 days</li>
+                    <li>Billing errors or unauthorized charges</li>
+                    <li>Service not delivered as promised</li>
+                    <li>Duplicate charges or payment processing errors</li>
+                    <li>Account security breaches affecting billing</li>
+                </ul>
+            </div>
+
+            <h3>Partial Refunds Available For:</h3>
+            <ul>
+                <li>Service interruptions lasting more than 48 hours</li>
+                <li>Significant feature removal without notice</li>
+                <li>Data loss due to our technical failures</li>
+                <li>Accessibility issues not resolved within 7 days</li>
+            </ul>
+        </div>
+        
+        <div class="section">
+            <h2>5. Refund Limitations</h2>
+            <div class="warning">
+                <h3>Please Note:</h3>
+                <ul>
+                    <li>No refunds for change of mind after trial period</li>
+                    <li>No partial refunds for unused portions of monthly subscriptions</li>
+                    <li>No refunds for subscription periods older than 60 days</li>
+                    <li>No refunds if account was terminated for terms violation</li>
+                    <li>No refunds for content you've already consumed</li>
+                    <li>Maximum one refund per account per year</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>6. How to Request a Refund</h2>
+            <div class="important">
+                <h3>Refund Process:</h3>
+                <ol style="padding-left: 25px;">
+                    <li>Contact our support team within 30 days of the charge</li>
+                    <li>Provide your account email and order details</li>
+                    <li>Explain the reason for your refund request</li>
+                    <li>Include any relevant screenshots or documentation</li>
+                    <li>Our team will review and respond within 5 business days</li>
+                    <li>Approved refunds are processed within 5-10 business days</li>
+                </ol>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>7. App Store Refunds</h2>
+            <ul>
+                <li>Payments are processed by Apple App Store or Google Play</li>
+                <li>You may request refunds directly through your app store</li>
+                <li>App store refund policies also apply</li>
+                <li>We honor valid app store refund decisions</li>
+                <li>Contact us if app store denies your refund request</li>
+                <li>Some refunds require coordination between us and the app store</li>
+            </ul>
+        </div>
+        
+        <div class="section">
+            <h2>8. Refund Processing</h2>
+            <ul>
+                <li>Refunds are issued to the original payment method</li>
+                <li>Processing time: 5-10 business days after approval</li>
+                <li>Bank processing may take additional 1-3 business days</li>
+                <li>Email confirmation sent when refund is processed</li>
+                <li>Contact us if you don't receive confirmation within 14 days</li>
+                <li>Currency conversions use current exchange rates</li>
+            </ul>
+        </div>
+        
+        <div class="section">
+            <h2>9. Service Credits</h2>
+            <div class="highlight">
+                <h3>Alternative to Refunds:</h3>
+                <ul>
+                    <li>Credits extend your subscription at no cost</li>
+                    <li>Applied automatically to your next billing cycle</li>
+                    <li>Non-transferable and expire if account is closed</li>
+                    <li>Cannot be converted to cash or refunds</li>
+                    <li>Issued at our discretion for service interruptions</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>10. Fair Usage</h2>
+            <div class="warning">
+                <h3>Anti-Abuse Measures:</h3>
+                <ul>
+                    <li>We monitor for unusual refund patterns</li>
+                    <li>Accounts with excessive refund requests may be flagged</li>
+                    <li>Fraudulent refund attempts will result in account termination</li>
+                    <li>We reserve the right to deny refunds for abuse</li>
+                    <li>Legal action may be taken for payment fraud</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="contact-info">
+            <h2>Contact Us</h2>
+            <p>For refund requests or questions about this policy, contact us at:</p>
+            <ul>
+                <li><strong>Refunds:</strong> refunds@thamizhistudios.com</li>
+                <li><strong>Support:</strong> support@thamizhistudios.com</li>
+                <li><strong>Billing:</strong> billing@thamizhistudios.com</li>
+            </ul>
+            <p style="margin-top: 20px; font-style: italic; border-top: 1px solid rgba(150, 175, 116, 0.3); padding-top: 20px;">
+                We're committed to fair and transparent refund practices. Thank you for choosing PeaceBreak.
+            </p>
+        </div>
+    </div>
+</body>
+</html> 
