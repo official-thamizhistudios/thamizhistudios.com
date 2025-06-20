@@ -62,16 +62,21 @@
     .logo img {
       width: 60px;
       height: 60px;
+      border-radius: 50%;
       object-fit: cover;
       filter: brightness(0) invert(1);
+      background: transparent;
+      border: none;
+      outline: none;
+      box-shadow: none;
     }
 
     .logo-text {
       font-family: 'Lavishly Yours', cursive;
-      font-size: 2.8rem;
-      color: var(--primary);
+      font-size: 3.5rem;
+      color: #f7f7f7;
       font-weight: 400;
-    }
+	  }
     /* Subtitle under brand if desired (optional) */
     /* .brand-subtitle { 
       color: #b0c4d4; 
@@ -240,7 +245,9 @@
       <div class="badges-footer">
         <!-- 1) Square logo (local PNG) -->
         <div class="badge">
-          <img src="./assets/images/square_logo.png" alt="Square" class="square-logo" />
+          <a href="https://squareup.com/us/en/about" target="_blank" rel="noopener">
+            <img src="./assets/images/square_logo.png" alt="Square" class="square-logo" />
+          </a>
         </div>
         <!-- 2) Lock badge with green background and black lock icon -->
         <div class="badge badge-lock">
