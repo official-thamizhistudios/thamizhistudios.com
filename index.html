@@ -1,17 +1,20 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Thamizhi Studios</title>
+  <title>Thamizhi Studios - Thoughtful Digital Tools</title>
+  <meta name="description" content="Thamizhi Studios creates soulful, thoughtful digital tools that help you reconnect with clarity. Discover PeaceBreak - ambient audio for intentional moments of calm.">
+  <meta name="keywords" content="ambient audio, mindfulness app, PeaceBreak, shake to play, scheduled breaks, digital wellness, Thamizhi Studios">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/jpg" href="./peacebreak/assets/images/lotus-icon.jpg">
 <style>
   body {
     margin: 0;
     font-family: 'Inter', sans-serif;
     background: #1e1c26; /* deep twilight */
     color: #e0e0e0;
+    line-height: 1.6;
   }
 
   header {
@@ -28,6 +31,11 @@
     text-decoration: none;
     color: #b89bff; /* softened version of #6f42c1 */
     font-weight: 600;
+    transition: color 0.3s ease;
+  }
+
+  header nav a:hover {
+    color: #dabaff;
   }
 
   .hero {
@@ -39,6 +47,7 @@
   .hero h1 {
     font-size: 3em;
     color: #dabaff;
+    margin-bottom: 1rem;
   }
 
   .hero p {
@@ -55,6 +64,12 @@
     border-radius: 5px;
     text-decoration: none;
     font-weight: 600;
+    transition: all 0.3s ease;
+  }
+
+  .hero a:hover {
+    background: #8a5cf5;
+    transform: translateY(-2px);
   }
 
   section {
@@ -71,16 +86,190 @@
     box-shadow: 0 4px 20px rgba(0,0,0,0.2);
   }
 
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    max-width: 1000px;
+    margin: 2rem auto;
+  }
+
+  .feature-card {
+    background: #2f2c3a;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    text-align: center;
+  }
+
+  .feature-card h3 {
+    color: #b89bff;
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+  }
+
+  .feature-card p {
+    color: #d0cde1;
+    font-size: 1rem;
+  }
+
+  .stats-section {
+    background: #2a2735;
+    margin: 2rem 0;
+    border-radius: 10px;
+    padding: 2rem;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 2rem;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .stat-item {
+    text-align: center;
+  }
+
+  .stat-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #dabaff;
+    display: block;
+  }
+
+  .stat-label {
+    color: #b89bff;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+  }
+
+  .cta-section {
+    background: #332f44;
+    margin: 2rem 0;
+    border-radius: 10px;
+    padding: 3rem 2rem;
+  }
+
+  .cta-section h3 {
+    color: #dabaff;
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+  }
+
+  .cta-section p {
+    color: #d0cde1;
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    background: #6f42c1;
+    color: #fff;
+    padding: 0.8rem 1.5rem;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+
+  .btn-primary:hover {
+    background: #8a5cf5;
+    transform: translateY(-2px);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: #b89bff;
+    padding: 0.8rem 1.5rem;
+    border: 2px solid #b89bff;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+
+  .btn-secondary:hover {
+    background: #b89bff;
+    color: #1e1c26;
+    transform: translateY(-2px);
+  }
+
   h2 {
     color: #cabdff;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  h3 {
+    color: #b89bff;
   }
 
   footer {
     text-align: center;
-    padding: 2rem;
+    padding: 3rem 2rem;
     font-size: 0.9em;
     background: #25232e;
     color: #aaa;
+    border-top: 1px solid #2a2735;
+  }
+
+  .footer-content {
+    max-width: 800px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .footer-section h4 {
+    color: #b89bff;
+    margin-bottom: 1rem;
+  }
+
+  .footer-section a {
+    color: #aaa;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 0.5rem;
+    transition: color 0.3s ease;
+  }
+
+  .footer-section a:hover {
+    color: #b89bff;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .hero h1 {
+      font-size: 2.2em;
+    }
+    
+    .features-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .stats-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .cta-buttons {
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    section {
+      padding: 3rem 1rem;
+    }
   }
 </style>
 
@@ -88,11 +277,6 @@
 <body>
   <header>
     <div><strong style="color:#6f42c1;">Thamizhi Studios</strong></div>
-    <nav>
-      <a href="./index.html">Home</a>
-      <a href="./peacebreak/index.html">PeaceBreak</a>
-      <a href="./peacebreak/paymentthankyou.html">Payment Thank You</a>
-    </nav>
   </header>
 
   <section class="hero">
@@ -105,19 +289,56 @@
     <h2>🌱 Our Mission</h2>
     <div class="card">
       <p>At <strong>Thamizhi Studios</strong>, we believe technology should serve people — not distract them. Our mission is to create intentional digital tools that offer clarity, calm, and empowerment through minimal but meaningful design.</p>
-      <p>We’re not building apps to impress. We’re building tools to support real change in people’s lives. From mindfulness to accountability, everything we make is rooted in personal experience and tested in real-world chaos.</p>
+      <p>We're not building apps to impress. We're building tools to support real change in people's lives. From mindfulness to accountability, everything we make is rooted in personal experience and tested in real-world chaos.</p>
     </div>
   </section>
 
   <section>
-    <h2>🚀 Featured Project</h2>
+    <h2>🚀 Ready to Find Your Moments of Peace?</h2>
     <div class="card">
       <h3>PeaceBreak</h3>
-      <p>A premium ambient audio app for micro-mindfulness. PeaceBreak lets you trigger moments of peace through shake, tap, or schedule — even while your phone is locked.</p>
-      <p>Built with React Native, Expo, and Supabase, it’s designed to deliver calming breaks without effort. No distractions, no overwhelm — just moments of intentional calm.</p>
+      <p>Our flagship app that helps you take intentional breaks through shake-to-play audio and scheduled peace breaks. Built for busy people who need moments of calm without the complexity.</p>
+      <p>Join thousands who've discovered the power of intentional moments.</p>
+      <div class="cta-buttons">
+        <a href="./peacebreak/index.html" class="btn-primary">Explore PeaceBreak</a>
+      </div>
     </div>
   </section>
 
-  <footer>© 2025 Thamizhi Studios. All rights reserved.</footer>
+  <section>
+    <h2>💡 Our Philosophy</h2>
+    <div class="card">
+      <p><strong>Technology should enhance life, not complicate it.</strong> We build tools that serve a purpose without adding unnecessary complexity.</p>
+      <p>Built by a small, family-owned studio in New Hampshire, we're committed to privacy, simplicity, and genuine human connection. We collect minimal data, never sell your information, and respond personally to every support request.</p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>Thamizhi Studios</h4>
+        <p>Creating thoughtful digital tools for modern life. Based in New Hampshire, serving users worldwide.</p>
+      </div>
+      
+      <div class="footer-section">
+        <h4>PeaceBreak</h4>
+        <a href="./peacebreak/index.html">App Details</a>
+        <a href="./peacebreak/privacy-policy.html">Privacy Policy</a>
+        <a href="./peacebreak/terms-of-service.html">Terms of Service</a>
+        <a href="./peacebreak/refund-policy.html">Refund Policy</a>
+      </div>
+      
+      <div class="footer-section">
+        <h4>Support</h4>
+        <a href="mailto:support@thamizhistudios.com">support@thamizhistudios.com</a>
+        <p>Response time: 24-48 hours</p>
+        <p>Real people, real support.</p>
+      </div>
+    </div>
+    
+    <div style="border-top: 1px solid #2a2735; padding-top: 2rem; margin-top: 2rem;">
+      © 2025 Thamizhi Studios. All rights reserved. Made with ❤️ for intentional living.
+    </div>
+  </footer>
 </body>
 </html>
